@@ -5,6 +5,9 @@
     </Console>
   </Appenders>
   <Loggers>
+    <Logger name="io.grpc" level="info" additivity="false">
+      <AppenderRef ref="console"/>
+    </Logger>
     <Root level="debug">
       <AppenderRef ref="console"/>
     </Root>

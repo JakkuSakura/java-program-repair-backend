@@ -1,72 +1,52 @@
-package org.bytecamp.program_repair.backend.utils;
+package org.bytecamp.program_repair.backend.utils
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.io.IOException
+import java.io.OutputStream
 
-public class WriterStream extends OutputStream {
-    private final IWriter writer;
-    private final StringBuffer buffer = new StringBuffer();
-
-    public WriterStream(IWriter writer) {
-        this.writer = writer;
+class WriterStream(private val writer: IWriter) : OutputStream() {
+    private val buffer = StringBuffer()
+    @Throws(IOException::class)
+    override fun write(b: Int) {
+        if (b == '\n'.toInt()) {
+            flush()
+            return
+        }
+        if (buffer.length > 300) {
+            writer.write(buffer.toString())
+            buffer.setLength(0)
+        }
+        buffer.append(b)
     }
 
-    @Override
-    public void write(int b) throws IOException {
-        if (b == '\n') {
-            if (buffer.length() > 0) {
-                writer.writeln(buffer.toString());
-                buffer.setLength(0);
-            }
-            return;
-        }
-        if (buffer.length() > 300) {
-            writer.write(buffer.toString());
-            buffer.setLength(0);
-        }
-        buffer.append(b);
+    @Throws(IOException::class)
+    override fun write(b: ByteArray) {
+        flush()
+        writer.write(String(b, Charsets.UTF_8))
     }
 
-    @Override
-    public void write(byte b[]) throws IOException {
-        if (buffer.length() > 0) {
-            writer.write(buffer.toString());
-            buffer.setLength(0);
-        }
-        writer.write(new String(b, StandardCharsets.UTF_8));
-    }
-
-    public void write(byte b[], int off, int len) throws IOException {
-        if (b == null) {
-            throw new NullPointerException();
-        } else if ((off < 0) || (off > b.length) || (len < 0) ||
-                ((off + len) > b.length) || ((off + len) < 0)) {
-            throw new IndexOutOfBoundsException();
+    @Throws(IOException::class)
+    override fun write(b: ByteArray, off: Int, len: Int) {
+        if (off < 0 || off > b.size || len < 0 ||
+            off + len > b.size || off + len < 0
+        ) {
+            throw IndexOutOfBoundsException()
         } else if (len == 0) {
-            return;
+            return
         }
-        if (buffer.length() > 0) {
-            writer.write(buffer.toString());
-            buffer.setLength(0);
-        }
-        writer.write(new String(Arrays.copyOfRange(b, off, off + len), StandardCharsets.UTF_8));
+        flush()
+        writer.write(String(b.copyOfRange(off, off + len), Charsets.UTF_8))
     }
 
-    @Override
-    public void flush() throws IOException {
-        if (buffer.length() > 0) {
-            writer.write(buffer.toString());
-            buffer.setLength(0);
+    @Throws(IOException::class)
+    override fun flush() {
+        if (buffer.isNotEmpty()) {
+            writer.write(buffer.toString())
+            buffer.setLength(0)
         }
     }
 
-    @Override
-    public void close() throws IOException {
-        if (buffer.length() > 0) {
-            writer.write(buffer.toString());
-            buffer.setLength(0);
-        }
+    @Throws(IOException::class)
+    override fun close() {
+        flush()
     }
 }

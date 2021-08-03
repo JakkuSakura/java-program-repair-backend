@@ -1,9 +1,12 @@
-package org.bytecamp.program_repair.backend.server
+package org.bytecamp.program_repair.backend
 
 import io.grpc.Server
 import io.grpc.ServerBuilder
+import org.bytecamp.program_repair.backend.server.AstorRepairServer
+import org.bytecamp.program_repair.backend.server.GrpcRepairServerImpl
 
 class RepairServerMain {
+
     private val server: Server =
         ServerBuilder.forPort(10000).addService(GrpcRepairServerImpl(AstorRepairServer())).build()
 

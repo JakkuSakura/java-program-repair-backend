@@ -1,24 +1,20 @@
-package org.bytecamp.program_repair.backend.utils;
+package org.bytecamp.program_repair.backend.utils
 
-import java.util.ArrayList;
-
-public class DupWriter implements IWriter {
-    ArrayList<IWriter> writers = new ArrayList<>();
-
-    public void add(IWriter writer) {
-        writers.add(writer);
+class FanOutWriter : IWriter {
+    var writers = ArrayList<IWriter>()
+    fun add(writer: IWriter) {
+        writers.add(writer)
     }
 
-    @Override
-    public void write(String chunk) {
-         for (IWriter writer : writers) {
-            writer.write(chunk);
+    override fun write(chunk: String) {
+        for (writer in writers) {
+            writer.write(chunk)
         }
     }
-    @Override
-    public void writeln(String chunk) {
-        for (IWriter writer : writers) {
-            writer.writeln(chunk);
+
+    override fun writeln(line: String) {
+        for (writer in writers) {
+            writer.writeln(line)
         }
     }
 }

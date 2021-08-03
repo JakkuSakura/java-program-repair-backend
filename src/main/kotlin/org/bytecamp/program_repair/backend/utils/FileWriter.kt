@@ -1,19 +1,21 @@
-package org.bytecamp.program_repair.backend.utils;
+package org.bytecamp.program_repair.backend.utils
 
-import java.io.File;
-import java.io.IOException;
+import java.io.File
+import java.io.FileWriter
+import java.io.IOException
+import java.io.Writer
 
-public class FileWriter implements IWriter {
-    final private java.io.Writer file;
-    public FileWriter(File file) throws IOException {
-        this.file = new java.io.FileWriter(file);
-    }
-    @Override
-    public void write(String chunk) {
+class FileWriter(file: File) : IWriter {
+    private val file: Writer
+    override fun write(chunk: String) {
         try {
-            file.write(chunk);
-        } catch (IOException e) {
-            e.printStackTrace();
+            file.write(chunk)
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
+    }
+
+    init {
+        this.file = FileWriter(file)
     }
 }

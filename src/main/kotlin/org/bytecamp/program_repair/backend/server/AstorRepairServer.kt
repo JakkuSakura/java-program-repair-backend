@@ -1,6 +1,8 @@
 package org.bytecamp.program_repair.backend.server
 
 import AstorInputConfig
+import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
 import org.bytecamp.program_repair.backend.grpc.RepairTaskRequest
 import org.bytecamp.program_repair.backend.grpc.RepairTaskResponse
 import java.io.File
@@ -14,30 +16,48 @@ class AstorRepairServer : RepairServer {
 }
 
 class AstorRepairTask(source: String, val task: RepairTaskRequest) : RunningRepairTask {
+    private val logger: Logger = LogManager.getLogger()
+
     private val source = File(source)
 
 
     override fun execute(writer: PrintStream): RepairTaskResponse {
         val config = getConfig(writer)
+        config.mode = task.algorithm
+
         val arguments: String = config.toArgs().joinToString(" ")
-        val child = Runtime.getRuntime().exec("java -cp build/astor.jar fr.inria.main.evolution.AstorMain $arguments")
+        val realCmd = "java -cp build/astor.jar fr.inria.main.evolution.AstorMain $arguments"
+        logger.info("Running $realCmd")
+        val child = Runtime.getRuntime().exec(realCmd)
         val out = child.inputStream
-        val buffer = ByteArray(1000)
-        while (true) {
-            val len = out.read(buffer);
-            if (len < 0)
-                break
-            writer.print(buffer.slice(IntRange(0, len)))
+        val out2 = child.errorStream
+        val buf = ByteArray(100000)
+        while (child.isAlive) {
+
+            while (out.available() > 0) {
+                val bytes = out.read(buf)
+                if (bytes < 0)
+                    break
+                writer.print(String(buf, 0, bytes))
+            }
+            while (out2.available() > 0) {
+                val bytes = out2.read(buf)
+                if (bytes < 0)
+                    break
+                writer.print(String(buf, 0, bytes))
+            }
+
         }
-        child.waitFor()
+
         val respBuilder = RepairTaskResponse.newBuilder()
+        respBuilder.setFrameType(RepairTaskResponse.FrameType.RESULT)
         val outConfig = config.getOutConfig()
         for (patch in outConfig.patches) {
             for (hunk in patch.patchhunks) {
                 val builder = RepairTaskResponse.Patch.newBuilder()
                 builder.modified = File(hunk.getModifiedFilePath()).readText(Charsets.UTF_8)
                 builder.success = true
-                builder.sourcePath = hunk.getPath()
+                builder.sourcePath = File(hunk.getPath()).relativeTo(source).path
                 respBuilder.addPatch(builder.build())
 
             }
@@ -89,18 +109,17 @@ class AstorRepairTask(source: String, val task: RepairTaskRequest) : RunningRepa
         config.src = File(source, "src/main/java").path
         config.pkg = getCommonPackage(File(source, "src/main/java"), "")
         config.srcTest = File(source, "src/test/java").path
+        config.out = "build/astor"
 
         val base = source.path
         when (getBuildSystem()) {
             "gradle" -> {
                 config.bin = "$base/build/classes/java/main"
                 config.binTest = "$base/build/classes/java/test"
-                config.out = "$base/build/astor"
             }
             "maven" -> {
                 config.bin = "$base/target/classes"
                 config.binTest = "$base/target/test-classes"
-                config.out = "$base/target/astor"
             }
             else -> {
                 writer.println("Does not support build systems other than gradle or maven")
