@@ -1,3 +1,5 @@
+package org.bytecamp.program_repair.backend.configs;
+
 import java.io.File
 
 object InputKeys {

@@ -1,8 +1,8 @@
 package org.bytecamp.program_repair.backend.server
 
-import AstorInputConfig
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
+import org.bytecamp.program_repair.backend.configs.AstorInputConfig
 import org.bytecamp.program_repair.backend.grpc.RepairTaskRequest
 import org.bytecamp.program_repair.backend.grpc.RepairTaskResponse
 import java.io.File

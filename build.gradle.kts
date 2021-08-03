@@ -30,11 +30,7 @@ dependencies {
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
 
-    // Use the Kotlin JDK 8 standard library.
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-
     implementation("com.google.code.gson:gson:2.8.7")
-
 
     implementation("io.grpc:grpc-protobuf:$grpcVersion")
     implementation("io.grpc:grpc-core:$grpcVersion")
@@ -47,12 +43,9 @@ dependencies {
 
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
-
-
-
 }
 
 application {
     // Define the main class for the application.
-    mainClass.set("org.bytecamp.program_repair.backend.server.RepairServerMainKt")
+    mainClass.set("org.bytecamp.program_repair.backend.RepairServerMainKt")
 }
