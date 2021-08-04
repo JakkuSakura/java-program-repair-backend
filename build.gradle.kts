@@ -47,5 +47,5 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("org.bytecamp.program_repair.backend.RepairServerMainKt")
+    mainClass.set("org.bytecamp.program_repair.backend.RepairServerMain")
 }
