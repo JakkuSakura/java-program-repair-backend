@@ -5,7 +5,7 @@ option java_package = "org.bytecamp.program_repair.backend.grpc";
 option java_outer_classname = "RepairServerProto";
 
 service RepairServer {
-  rpc SubmitTask(RepairTaskRequest) returns (stream RepairTaskResponse) {}
+  rpc SubmitTask(stream RepairTaskRequest) returns (stream RepairTaskResponse) {}
 
 }
 
@@ -15,6 +15,7 @@ message RepairTaskRequest {
   string project = 3;
   string algorithm = 4;
   bytes content = 5;
+  bool content_continue = 6;
   enum LocationType {
     PATH = 0;
     GIT = 1;

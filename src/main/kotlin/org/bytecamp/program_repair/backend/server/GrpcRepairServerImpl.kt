@@ -9,15 +9,40 @@ import org.bytecamp.program_repair.backend.utils.*
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.PrintStream
+import java.nio.ByteBuffer
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
 import kotlin.math.abs
 
-
-class GrpcRepairServerImpl(val server: RepairServer) : RepairServerImplBase() {
+class Task(val server: RepairServer, val responseObserver: StreamObserver<RepairTaskResponse?>) :
+    StreamObserver<RepairTaskRequest?> {
+    private var requests = ArrayList<RepairTaskRequest>()
     private val logger = LogManager.getLogger()
     private val random = Random()
-    private fun prepareProject(type: RepairTaskRequest.LocationType, projectName: String, location: String?, content: ByteArray?): String {
+
+    override fun onNext(value: RepairTaskRequest?) {
+        if (requests.isEmpty()) {
+            requests.add(value!!)
+        } else {
+            if (value!!.locationType != RepairTaskRequest.LocationType.ZIP)
+                throw IllegalArgumentException("Only ZIP should be streamed")
+            if (!requests.last().contentContinue)
+                throw IllegalArgumentException("Unexpected frame after non-continuing frame")
+            requests.add(value)
+        }
+    }
+
+    override fun onError(t: Throwable?) {
+        logger.error("Error while receiving", t)
+    }
+
+    private fun prepareProject(
+        type: RepairTaskRequest.LocationType,
+        projectName: String,
+        location: String?,
+        content: ByteArray?
+    ): String {
         when (type) {
             RepairTaskRequest.LocationType.PATH -> {
                 return location!!
@@ -26,7 +51,8 @@ class GrpcRepairServerImpl(val server: RepairServer) : RepairServerImplBase() {
                 val rnd = abs(random.nextInt())
                 val path = "git_repo/$projectName-$rnd/"
                 File(path).mkdirs()
-                val child = Runtime.getRuntime().exec("sh -c 'cd \"$path/../\" && git clone $location $projectName-$rnd --recursive'")
+                val child = Runtime.getRuntime()
+                    .exec("sh -c 'cd \"$path/../\" && git clone $location $projectName-$rnd --recursive'")
                 child.waitFor()
                 return path
             }
@@ -43,28 +69,54 @@ class GrpcRepairServerImpl(val server: RepairServer) : RepairServerImplBase() {
         }
     }
 
-    override fun submitTask(
-        request: RepairTaskRequest?,
-        responseObserver: StreamObserver<RepairTaskResponse?>?
-    ) {
+    override fun onCompleted() {
         thread {
-            val path = prepareProject(request!!.locationType, request.project, request.location, request.content.toByteArray())
-            val running = server.submitTask(path, request)
-            val printer = newPrintStream(responseObserver!!)
-            try {
-                val config = running.execute(printer)
-                responseObserver.onNext(config)
-            } catch (e: Exception) {
-                logger.error(e)
-                val err = e.stackTraceToString()
+            if (requests.isNotEmpty()) {
+                val request = this.requests[0]
+                val bytes = ByteBuffer.allocate(requests.map { x -> x.content.size() }.sum())
+                requests.forEach { x -> bytes.put(x.content.toByteArray()) }
+                val path = prepareProject(
+                    request.locationType,
+                    request.project,
+                    request.location,
+                    bytes.array()
+                )
+                val running = server.submitTask(path, request)
+                val printer = newPrintStream(responseObserver)
+                try {
+                    val config = running.execute(printer)
+                    responseObserver.onNext(config)
+                } catch (e: Exception) {
+                    logger.error(e)
+                    val err = e.stackTraceToString()
+                    val builder =
+                        RepairTaskResponse.newBuilder().setFrameType(RepairTaskResponse.FrameType.RESULT)
+                            .setMessage(err)
+                    responseObserver.onNext(builder.build())
+                }
+                responseObserver.onCompleted()
+            } else {
+                logger.error("Does not received any Request")
                 val builder =
-                    RepairTaskResponse.newBuilder().setFrameType(RepairTaskResponse.FrameType.RESULT).setMessage(err)
+                    RepairTaskResponse.newBuilder().setFrameType(RepairTaskResponse.FrameType.RESULT)
+                        .setMessage("Does not received any Request")
                 responseObserver.onNext(builder.build())
+                responseObserver.onCompleted()
             }
-            responseObserver.onCompleted()
         }
+
     }
 
+}
+
+class GrpcRepairServerImpl(val server: RepairServer) : RepairServerImplBase() {
+
+
+    override fun submitTask(
+        responseObserver: StreamObserver<RepairTaskResponse?>
+    ): StreamObserver<RepairTaskRequest?> {
+        return Task(server, responseObserver)
+    }
 
 }
 
