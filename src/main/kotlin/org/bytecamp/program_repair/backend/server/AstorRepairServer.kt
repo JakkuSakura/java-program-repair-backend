@@ -7,6 +7,7 @@ import org.bytecamp.program_repair.backend.grpc.RepairTaskRequest
 import org.bytecamp.program_repair.backend.grpc.RepairTaskResponse
 import org.bytecamp.program_repair.backend.grpc.RepairTaskResult
 import java.io.File
+import java.io.FileNotFoundException
 import java.io.PrintStream
 
 
@@ -25,7 +26,8 @@ class AstorRepairTask(source: String, val task: RepairTaskRequest) : RunningRepa
     override fun execute(writer: PrintStream): RepairTaskResponse {
         val config = getConfig(writer)
         config.mode = task.algorithm
-
+        logger.info("Deleting path " + config.getOutPath())
+        File(config.getOutPath()).deleteRecursively()
         val arguments: String = config.toArgs().joinToString(" ")
         val realCmd = "java -cp build/astor.jar fr.inria.main.evolution.AstorMain $arguments"
         logger.info("Running $realCmd")
@@ -51,22 +53,32 @@ class AstorRepairTask(source: String, val task: RepairTaskRequest) : RunningRepa
         }
 
         // build the successful result
-        val outConfig = config.getOutConfig()
-        val resultBuilder = RepairTaskResult.newBuilder()
-        resultBuilder.success = true
-        for (patch in outConfig.patches) {
-            for (hunk in patch.patchhunks) {
-                val builder = RepairTaskResult.Patch.newBuilder()
-                builder.modified = File(hunk.getModifiedFilePath()).readText(Charsets.UTF_8)
-                builder.sourcePath = File(hunk.getPath()).relativeTo(source).path
-                resultBuilder.addPatch(builder.build())
+        try {
+            val outConfig = config.getOutConfig()
+            val resultBuilder = RepairTaskResult.newBuilder()
+            resultBuilder.success = true
+            for (patch in outConfig.patches) {
+                for (hunk in patch.patchhunks) {
+                    val builder = RepairTaskResult.Patch.newBuilder()
+                    builder.modified = File(hunk.getModifiedFilePath()).readText(Charsets.UTF_8)
+                    builder.sourcePath = File(hunk.getPath()).relativeTo(source).path
+                    resultBuilder.addPatch(builder.build())
+                }
             }
+            val respBuilder = RepairTaskResponse.newBuilder()
+            respBuilder.frameType = RepairTaskResponse.FrameType.RESULT
+            respBuilder.addResult(resultBuilder.build())
+            return respBuilder.build()
+        } catch (ex: FileNotFoundException) {
+            writer.println(ex)
+            val respBuilder = RepairTaskResponse.newBuilder()
+            respBuilder.frameType = RepairTaskResponse.FrameType.RESULT
+            val resultBuilder = RepairTaskResult.newBuilder()
+            resultBuilder.success = false
+            respBuilder.addResult(resultBuilder.build())
+            return respBuilder.build()
         }
 
-        val respBuilder = RepairTaskResponse.newBuilder()
-        respBuilder.frameType = RepairTaskResponse.FrameType.RESULT
-        respBuilder.addResult(resultBuilder.build())
-        return respBuilder.build()
     }
 
     fun getCommonPackage(file: File, prefix: String): String {

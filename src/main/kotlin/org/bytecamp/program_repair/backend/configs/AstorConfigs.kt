@@ -134,6 +134,7 @@ data class PatchHunk(
     fun getPath(): String {
         return PATH.replace("\\/", "/")
     }
+
     fun getModifiedFilePath(): String {
         return MODIFIED_FILE_PATH.replace("\\/", "/")
     }
