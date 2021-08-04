@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger
 import org.bytecamp.program_repair.backend.configs.AstorInputConfig
 import org.bytecamp.program_repair.backend.grpc.RepairTaskRequest
 import org.bytecamp.program_repair.backend.grpc.RepairTaskResponse
+import org.bytecamp.program_repair.backend.grpc.RepairTaskResult
 import java.io.File
 import java.io.PrintStream
 
@@ -49,19 +50,22 @@ class AstorRepairTask(source: String, val task: RepairTaskRequest) : RunningRepa
 
         }
 
-        val respBuilder = RepairTaskResponse.newBuilder()
-        respBuilder.setFrameType(RepairTaskResponse.FrameType.RESULT)
+        // build the successful result
         val outConfig = config.getOutConfig()
+        val resultBuilder = RepairTaskResult.newBuilder()
+        resultBuilder.success = true
         for (patch in outConfig.patches) {
             for (hunk in patch.patchhunks) {
-                val builder = RepairTaskResponse.Patch.newBuilder()
+                val builder = RepairTaskResult.Patch.newBuilder()
                 builder.modified = File(hunk.getModifiedFilePath()).readText(Charsets.UTF_8)
-                builder.success = true
                 builder.sourcePath = File(hunk.getPath()).relativeTo(source).path
-                respBuilder.addPatch(builder.build())
-
+                resultBuilder.addPatch(builder.build())
             }
         }
+
+        val respBuilder = RepairTaskResponse.newBuilder()
+        respBuilder.frameType = RepairTaskResponse.FrameType.RESULT
+        respBuilder.addResult(resultBuilder.build())
         return respBuilder.build()
     }
 

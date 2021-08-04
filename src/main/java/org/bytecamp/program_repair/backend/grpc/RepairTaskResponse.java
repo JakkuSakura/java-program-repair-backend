@@ -18,7 +18,7 @@ private static final long serialVersionUID = 0L;
   private RepairTaskResponse() {
     frameType_ = 0;
     message_ = "";
-    patch_ = java.util.Collections.emptyList();
+    result_ = java.util.Collections.emptyList();
   }
 
   @java.lang.Override
@@ -66,11 +66,11 @@ private static final long serialVersionUID = 0L;
           }
           case 26: {
             if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-              patch_ = new java.util.ArrayList<org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch>();
+              result_ = new java.util.ArrayList<org.bytecamp.program_repair.backend.grpc.RepairTaskResult>();
               mutable_bitField0_ |= 0x00000001;
             }
-            patch_.add(
-                input.readMessage(org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.parser(), extensionRegistry));
+            result_.add(
+                input.readMessage(org.bytecamp.program_repair.backend.grpc.RepairTaskResult.parser(), extensionRegistry));
             break;
           }
           default: {
@@ -89,7 +89,7 @@ private static final long serialVersionUID = 0L;
           e).setUnfinishedMessage(this);
     } finally {
       if (((mutable_bitField0_ & 0x00000001) != 0)) {
-        patch_ = java.util.Collections.unmodifiableList(patch_);
+        result_ = java.util.Collections.unmodifiableList(result_);
       }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
@@ -216,795 +216,6 @@ private static final long serialVersionUID = 0L;
     // @@protoc_insertion_point(enum_scope:RepairTaskResponse.FrameType)
   }
 
-  public interface PatchOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:RepairTaskResponse.Patch)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>bool success = 1;</code>
-     * @return The success.
-     */
-    boolean getSuccess();
-
-    /**
-     * <code>string modified = 2;</code>
-     * @return The modified.
-     */
-    java.lang.String getModified();
-    /**
-     * <code>string modified = 2;</code>
-     * @return The bytes for modified.
-     */
-    com.google.protobuf.ByteString
-        getModifiedBytes();
-
-    /**
-     * <code>string source_path = 3;</code>
-     * @return The sourcePath.
-     */
-    java.lang.String getSourcePath();
-    /**
-     * <code>string source_path = 3;</code>
-     * @return The bytes for sourcePath.
-     */
-    com.google.protobuf.ByteString
-        getSourcePathBytes();
-  }
-  /**
-   * Protobuf type {@code RepairTaskResponse.Patch}
-   */
-  public static final class Patch extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:RepairTaskResponse.Patch)
-      PatchOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use Patch.newBuilder() to construct.
-    private Patch(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private Patch() {
-      modified_ = "";
-      sourcePath_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new Patch();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private Patch(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 8: {
-
-              success_ = input.readBool();
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              modified_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              sourcePath_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskResponse_Patch_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskResponse_Patch_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.class, org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.Builder.class);
-    }
-
-    public static final int SUCCESS_FIELD_NUMBER = 1;
-    private boolean success_;
-    /**
-     * <code>bool success = 1;</code>
-     * @return The success.
-     */
-    @java.lang.Override
-    public boolean getSuccess() {
-      return success_;
-    }
-
-    public static final int MODIFIED_FIELD_NUMBER = 2;
-    private volatile java.lang.Object modified_;
-    /**
-     * <code>string modified = 2;</code>
-     * @return The modified.
-     */
-    @java.lang.Override
-    public java.lang.String getModified() {
-      java.lang.Object ref = modified_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        modified_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string modified = 2;</code>
-     * @return The bytes for modified.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getModifiedBytes() {
-      java.lang.Object ref = modified_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        modified_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int SOURCE_PATH_FIELD_NUMBER = 3;
-    private volatile java.lang.Object sourcePath_;
-    /**
-     * <code>string source_path = 3;</code>
-     * @return The sourcePath.
-     */
-    @java.lang.Override
-    public java.lang.String getSourcePath() {
-      java.lang.Object ref = sourcePath_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        sourcePath_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string source_path = 3;</code>
-     * @return The bytes for sourcePath.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getSourcePathBytes() {
-      java.lang.Object ref = sourcePath_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        sourcePath_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (success_ != false) {
-        output.writeBool(1, success_);
-      }
-      if (!getModifiedBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, modified_);
-      }
-      if (!getSourcePathBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, sourcePath_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (success_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(1, success_);
-      }
-      if (!getModifiedBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, modified_);
-      }
-      if (!getSourcePathBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, sourcePath_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch)) {
-        return super.equals(obj);
-      }
-      org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch other = (org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch) obj;
-
-      if (getSuccess()
-          != other.getSuccess()) return false;
-      if (!getModified()
-          .equals(other.getModified())) return false;
-      if (!getSourcePath()
-          .equals(other.getSourcePath())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getSuccess());
-      hash = (37 * hash) + MODIFIED_FIELD_NUMBER;
-      hash = (53 * hash) + getModified().hashCode();
-      hash = (37 * hash) + SOURCE_PATH_FIELD_NUMBER;
-      hash = (53 * hash) + getSourcePath().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code RepairTaskResponse.Patch}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:RepairTaskResponse.Patch)
-        org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.PatchOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskResponse_Patch_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskResponse_Patch_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.class, org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.Builder.class);
-      }
-
-      // Construct using org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        success_ = false;
-
-        modified_ = "";
-
-        sourcePath_ = "";
-
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskResponse_Patch_descriptor;
-      }
-
-      @java.lang.Override
-      public org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch getDefaultInstanceForType() {
-        return org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch build() {
-        org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch buildPartial() {
-        org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch result = new org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch(this);
-        result.success_ = success_;
-        result.modified_ = modified_;
-        result.sourcePath_ = sourcePath_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch) {
-          return mergeFrom((org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch other) {
-        if (other == org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.getDefaultInstance()) return this;
-        if (other.getSuccess() != false) {
-          setSuccess(other.getSuccess());
-        }
-        if (!other.getModified().isEmpty()) {
-          modified_ = other.modified_;
-          onChanged();
-        }
-        if (!other.getSourcePath().isEmpty()) {
-          sourcePath_ = other.sourcePath_;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private boolean success_ ;
-      /**
-       * <code>bool success = 1;</code>
-       * @return The success.
-       */
-      @java.lang.Override
-      public boolean getSuccess() {
-        return success_;
-      }
-      /**
-       * <code>bool success = 1;</code>
-       * @param value The success to set.
-       * @return This builder for chaining.
-       */
-      public Builder setSuccess(boolean value) {
-        
-        success_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>bool success = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearSuccess() {
-        
-        success_ = false;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object modified_ = "";
-      /**
-       * <code>string modified = 2;</code>
-       * @return The modified.
-       */
-      public java.lang.String getModified() {
-        java.lang.Object ref = modified_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          modified_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string modified = 2;</code>
-       * @return The bytes for modified.
-       */
-      public com.google.protobuf.ByteString
-          getModifiedBytes() {
-        java.lang.Object ref = modified_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          modified_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string modified = 2;</code>
-       * @param value The modified to set.
-       * @return This builder for chaining.
-       */
-      public Builder setModified(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        modified_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string modified = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearModified() {
-        
-        modified_ = getDefaultInstance().getModified();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string modified = 2;</code>
-       * @param value The bytes for modified to set.
-       * @return This builder for chaining.
-       */
-      public Builder setModifiedBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        modified_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object sourcePath_ = "";
-      /**
-       * <code>string source_path = 3;</code>
-       * @return The sourcePath.
-       */
-      public java.lang.String getSourcePath() {
-        java.lang.Object ref = sourcePath_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          sourcePath_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string source_path = 3;</code>
-       * @return The bytes for sourcePath.
-       */
-      public com.google.protobuf.ByteString
-          getSourcePathBytes() {
-        java.lang.Object ref = sourcePath_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          sourcePath_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string source_path = 3;</code>
-       * @param value The sourcePath to set.
-       * @return This builder for chaining.
-       */
-      public Builder setSourcePath(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        sourcePath_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string source_path = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearSourcePath() {
-        
-        sourcePath_ = getDefaultInstance().getSourcePath();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string source_path = 3;</code>
-       * @param value The bytes for sourcePath to set.
-       * @return This builder for chaining.
-       */
-      public Builder setSourcePathBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        sourcePath_ = value;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:RepairTaskResponse.Patch)
-    }
-
-    // @@protoc_insertion_point(class_scope:RepairTaskResponse.Patch)
-    private static final org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch();
-    }
-
-    public static org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<Patch>
-        PARSER = new com.google.protobuf.AbstractParser<Patch>() {
-      @java.lang.Override
-      public Patch parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Patch(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<Patch> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Patch> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public static final int FRAME_TYPE_FIELD_NUMBER = 1;
   private int frameType_;
   /**
@@ -1062,44 +273,44 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int PATCH_FIELD_NUMBER = 3;
-  private java.util.List<org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch> patch_;
+  public static final int RESULT_FIELD_NUMBER = 3;
+  private java.util.List<org.bytecamp.program_repair.backend.grpc.RepairTaskResult> result_;
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
   @java.lang.Override
-  public java.util.List<org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch> getPatchList() {
-    return patch_;
+  public java.util.List<org.bytecamp.program_repair.backend.grpc.RepairTaskResult> getResultList() {
+    return result_;
   }
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
   @java.lang.Override
-  public java.util.List<? extends org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.PatchOrBuilder> 
-      getPatchOrBuilderList() {
-    return patch_;
+  public java.util.List<? extends org.bytecamp.program_repair.backend.grpc.RepairTaskResultOrBuilder> 
+      getResultOrBuilderList() {
+    return result_;
   }
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
   @java.lang.Override
-  public int getPatchCount() {
-    return patch_.size();
+  public int getResultCount() {
+    return result_.size();
   }
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
   @java.lang.Override
-  public org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch getPatch(int index) {
-    return patch_.get(index);
+  public org.bytecamp.program_repair.backend.grpc.RepairTaskResult getResult(int index) {
+    return result_.get(index);
   }
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
   @java.lang.Override
-  public org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.PatchOrBuilder getPatchOrBuilder(
+  public org.bytecamp.program_repair.backend.grpc.RepairTaskResultOrBuilder getResultOrBuilder(
       int index) {
-    return patch_.get(index);
+    return result_.get(index);
   }
 
   private byte memoizedIsInitialized = -1;
@@ -1122,8 +333,8 @@ private static final long serialVersionUID = 0L;
     if (!getMessageBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
     }
-    for (int i = 0; i < patch_.size(); i++) {
-      output.writeMessage(3, patch_.get(i));
+    for (int i = 0; i < result_.size(); i++) {
+      output.writeMessage(3, result_.get(i));
     }
     unknownFields.writeTo(output);
   }
@@ -1141,9 +352,9 @@ private static final long serialVersionUID = 0L;
     if (!getMessageBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
     }
-    for (int i = 0; i < patch_.size(); i++) {
+    for (int i = 0; i < result_.size(); i++) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(3, patch_.get(i));
+        .computeMessageSize(3, result_.get(i));
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -1163,8 +374,8 @@ private static final long serialVersionUID = 0L;
     if (frameType_ != other.frameType_) return false;
     if (!getMessage()
         .equals(other.getMessage())) return false;
-    if (!getPatchList()
-        .equals(other.getPatchList())) return false;
+    if (!getResultList()
+        .equals(other.getResultList())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -1180,9 +391,9 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + frameType_;
     hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
     hash = (53 * hash) + getMessage().hashCode();
-    if (getPatchCount() > 0) {
-      hash = (37 * hash) + PATCH_FIELD_NUMBER;
-      hash = (53 * hash) + getPatchList().hashCode();
+    if (getResultCount() > 0) {
+      hash = (37 * hash) + RESULT_FIELD_NUMBER;
+      hash = (53 * hash) + getResultList().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -1312,7 +523,7 @@ private static final long serialVersionUID = 0L;
     private void maybeForceBuilderInitialization() {
       if (com.google.protobuf.GeneratedMessageV3
               .alwaysUseFieldBuilders) {
-        getPatchFieldBuilder();
+        getResultFieldBuilder();
       }
     }
     @java.lang.Override
@@ -1322,11 +533,11 @@ private static final long serialVersionUID = 0L;
 
       message_ = "";
 
-      if (patchBuilder_ == null) {
-        patch_ = java.util.Collections.emptyList();
+      if (resultBuilder_ == null) {
+        result_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000001);
       } else {
-        patchBuilder_.clear();
+        resultBuilder_.clear();
       }
       return this;
     }
@@ -1357,14 +568,14 @@ private static final long serialVersionUID = 0L;
       int from_bitField0_ = bitField0_;
       result.frameType_ = frameType_;
       result.message_ = message_;
-      if (patchBuilder_ == null) {
+      if (resultBuilder_ == null) {
         if (((bitField0_ & 0x00000001) != 0)) {
-          patch_ = java.util.Collections.unmodifiableList(patch_);
+          result_ = java.util.Collections.unmodifiableList(result_);
           bitField0_ = (bitField0_ & ~0x00000001);
         }
-        result.patch_ = patch_;
+        result.result_ = result_;
       } else {
-        result.patch_ = patchBuilder_.build();
+        result.result_ = resultBuilder_.build();
       }
       onBuilt();
       return result;
@@ -1421,29 +632,29 @@ private static final long serialVersionUID = 0L;
         message_ = other.message_;
         onChanged();
       }
-      if (patchBuilder_ == null) {
-        if (!other.patch_.isEmpty()) {
-          if (patch_.isEmpty()) {
-            patch_ = other.patch_;
+      if (resultBuilder_ == null) {
+        if (!other.result_.isEmpty()) {
+          if (result_.isEmpty()) {
+            result_ = other.result_;
             bitField0_ = (bitField0_ & ~0x00000001);
           } else {
-            ensurePatchIsMutable();
-            patch_.addAll(other.patch_);
+            ensureResultIsMutable();
+            result_.addAll(other.result_);
           }
           onChanged();
         }
       } else {
-        if (!other.patch_.isEmpty()) {
-          if (patchBuilder_.isEmpty()) {
-            patchBuilder_.dispose();
-            patchBuilder_ = null;
-            patch_ = other.patch_;
+        if (!other.result_.isEmpty()) {
+          if (resultBuilder_.isEmpty()) {
+            resultBuilder_.dispose();
+            resultBuilder_ = null;
+            result_ = other.result_;
             bitField0_ = (bitField0_ & ~0x00000001);
-            patchBuilder_ = 
+            resultBuilder_ = 
               com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                 getPatchFieldBuilder() : null;
+                 getResultFieldBuilder() : null;
           } else {
-            patchBuilder_.addAllMessages(other.patch_);
+            resultBuilder_.addAllMessages(other.result_);
           }
         }
       }
@@ -1607,244 +818,244 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.util.List<org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch> patch_ =
+    private java.util.List<org.bytecamp.program_repair.backend.grpc.RepairTaskResult> result_ =
       java.util.Collections.emptyList();
-    private void ensurePatchIsMutable() {
+    private void ensureResultIsMutable() {
       if (!((bitField0_ & 0x00000001) != 0)) {
-        patch_ = new java.util.ArrayList<org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch>(patch_);
+        result_ = new java.util.ArrayList<org.bytecamp.program_repair.backend.grpc.RepairTaskResult>(result_);
         bitField0_ |= 0x00000001;
        }
     }
 
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch, org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.Builder, org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.PatchOrBuilder> patchBuilder_;
+        org.bytecamp.program_repair.backend.grpc.RepairTaskResult, org.bytecamp.program_repair.backend.grpc.RepairTaskResult.Builder, org.bytecamp.program_repair.backend.grpc.RepairTaskResultOrBuilder> resultBuilder_;
 
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public java.util.List<org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch> getPatchList() {
-      if (patchBuilder_ == null) {
-        return java.util.Collections.unmodifiableList(patch_);
+    public java.util.List<org.bytecamp.program_repair.backend.grpc.RepairTaskResult> getResultList() {
+      if (resultBuilder_ == null) {
+        return java.util.Collections.unmodifiableList(result_);
       } else {
-        return patchBuilder_.getMessageList();
+        return resultBuilder_.getMessageList();
       }
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public int getPatchCount() {
-      if (patchBuilder_ == null) {
-        return patch_.size();
+    public int getResultCount() {
+      if (resultBuilder_ == null) {
+        return result_.size();
       } else {
-        return patchBuilder_.getCount();
+        return resultBuilder_.getCount();
       }
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch getPatch(int index) {
-      if (patchBuilder_ == null) {
-        return patch_.get(index);
+    public org.bytecamp.program_repair.backend.grpc.RepairTaskResult getResult(int index) {
+      if (resultBuilder_ == null) {
+        return result_.get(index);
       } else {
-        return patchBuilder_.getMessage(index);
+        return resultBuilder_.getMessage(index);
       }
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder setPatch(
-        int index, org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch value) {
-      if (patchBuilder_ == null) {
+    public Builder setResult(
+        int index, org.bytecamp.program_repair.backend.grpc.RepairTaskResult value) {
+      if (resultBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
         }
-        ensurePatchIsMutable();
-        patch_.set(index, value);
+        ensureResultIsMutable();
+        result_.set(index, value);
         onChanged();
       } else {
-        patchBuilder_.setMessage(index, value);
+        resultBuilder_.setMessage(index, value);
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder setPatch(
-        int index, org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.Builder builderForValue) {
-      if (patchBuilder_ == null) {
-        ensurePatchIsMutable();
-        patch_.set(index, builderForValue.build());
+    public Builder setResult(
+        int index, org.bytecamp.program_repair.backend.grpc.RepairTaskResult.Builder builderForValue) {
+      if (resultBuilder_ == null) {
+        ensureResultIsMutable();
+        result_.set(index, builderForValue.build());
         onChanged();
       } else {
-        patchBuilder_.setMessage(index, builderForValue.build());
+        resultBuilder_.setMessage(index, builderForValue.build());
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder addPatch(org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch value) {
-      if (patchBuilder_ == null) {
+    public Builder addResult(org.bytecamp.program_repair.backend.grpc.RepairTaskResult value) {
+      if (resultBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
         }
-        ensurePatchIsMutable();
-        patch_.add(value);
+        ensureResultIsMutable();
+        result_.add(value);
         onChanged();
       } else {
-        patchBuilder_.addMessage(value);
+        resultBuilder_.addMessage(value);
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder addPatch(
-        int index, org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch value) {
-      if (patchBuilder_ == null) {
+    public Builder addResult(
+        int index, org.bytecamp.program_repair.backend.grpc.RepairTaskResult value) {
+      if (resultBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
         }
-        ensurePatchIsMutable();
-        patch_.add(index, value);
+        ensureResultIsMutable();
+        result_.add(index, value);
         onChanged();
       } else {
-        patchBuilder_.addMessage(index, value);
+        resultBuilder_.addMessage(index, value);
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder addPatch(
-        org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.Builder builderForValue) {
-      if (patchBuilder_ == null) {
-        ensurePatchIsMutable();
-        patch_.add(builderForValue.build());
+    public Builder addResult(
+        org.bytecamp.program_repair.backend.grpc.RepairTaskResult.Builder builderForValue) {
+      if (resultBuilder_ == null) {
+        ensureResultIsMutable();
+        result_.add(builderForValue.build());
         onChanged();
       } else {
-        patchBuilder_.addMessage(builderForValue.build());
+        resultBuilder_.addMessage(builderForValue.build());
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder addPatch(
-        int index, org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.Builder builderForValue) {
-      if (patchBuilder_ == null) {
-        ensurePatchIsMutable();
-        patch_.add(index, builderForValue.build());
+    public Builder addResult(
+        int index, org.bytecamp.program_repair.backend.grpc.RepairTaskResult.Builder builderForValue) {
+      if (resultBuilder_ == null) {
+        ensureResultIsMutable();
+        result_.add(index, builderForValue.build());
         onChanged();
       } else {
-        patchBuilder_.addMessage(index, builderForValue.build());
+        resultBuilder_.addMessage(index, builderForValue.build());
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder addAllPatch(
-        java.lang.Iterable<? extends org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch> values) {
-      if (patchBuilder_ == null) {
-        ensurePatchIsMutable();
+    public Builder addAllResult(
+        java.lang.Iterable<? extends org.bytecamp.program_repair.backend.grpc.RepairTaskResult> values) {
+      if (resultBuilder_ == null) {
+        ensureResultIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, patch_);
+            values, result_);
         onChanged();
       } else {
-        patchBuilder_.addAllMessages(values);
+        resultBuilder_.addAllMessages(values);
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder clearPatch() {
-      if (patchBuilder_ == null) {
-        patch_ = java.util.Collections.emptyList();
+    public Builder clearResult() {
+      if (resultBuilder_ == null) {
+        result_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
       } else {
-        patchBuilder_.clear();
+        resultBuilder_.clear();
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder removePatch(int index) {
-      if (patchBuilder_ == null) {
-        ensurePatchIsMutable();
-        patch_.remove(index);
+    public Builder removeResult(int index) {
+      if (resultBuilder_ == null) {
+        ensureResultIsMutable();
+        result_.remove(index);
         onChanged();
       } else {
-        patchBuilder_.remove(index);
+        resultBuilder_.remove(index);
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.Builder getPatchBuilder(
+    public org.bytecamp.program_repair.backend.grpc.RepairTaskResult.Builder getResultBuilder(
         int index) {
-      return getPatchFieldBuilder().getBuilder(index);
+      return getResultFieldBuilder().getBuilder(index);
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.PatchOrBuilder getPatchOrBuilder(
+    public org.bytecamp.program_repair.backend.grpc.RepairTaskResultOrBuilder getResultOrBuilder(
         int index) {
-      if (patchBuilder_ == null) {
-        return patch_.get(index);  } else {
-        return patchBuilder_.getMessageOrBuilder(index);
+      if (resultBuilder_ == null) {
+        return result_.get(index);  } else {
+        return resultBuilder_.getMessageOrBuilder(index);
       }
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public java.util.List<? extends org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.PatchOrBuilder> 
-         getPatchOrBuilderList() {
-      if (patchBuilder_ != null) {
-        return patchBuilder_.getMessageOrBuilderList();
+    public java.util.List<? extends org.bytecamp.program_repair.backend.grpc.RepairTaskResultOrBuilder> 
+         getResultOrBuilderList() {
+      if (resultBuilder_ != null) {
+        return resultBuilder_.getMessageOrBuilderList();
       } else {
-        return java.util.Collections.unmodifiableList(patch_);
+        return java.util.Collections.unmodifiableList(result_);
       }
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.Builder addPatchBuilder() {
-      return getPatchFieldBuilder().addBuilder(
-          org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.getDefaultInstance());
+    public org.bytecamp.program_repair.backend.grpc.RepairTaskResult.Builder addResultBuilder() {
+      return getResultFieldBuilder().addBuilder(
+          org.bytecamp.program_repair.backend.grpc.RepairTaskResult.getDefaultInstance());
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.Builder addPatchBuilder(
+    public org.bytecamp.program_repair.backend.grpc.RepairTaskResult.Builder addResultBuilder(
         int index) {
-      return getPatchFieldBuilder().addBuilder(
-          index, org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.getDefaultInstance());
+      return getResultFieldBuilder().addBuilder(
+          index, org.bytecamp.program_repair.backend.grpc.RepairTaskResult.getDefaultInstance());
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public java.util.List<org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.Builder> 
-         getPatchBuilderList() {
-      return getPatchFieldBuilder().getBuilderList();
+    public java.util.List<org.bytecamp.program_repair.backend.grpc.RepairTaskResult.Builder> 
+         getResultBuilderList() {
+      return getResultFieldBuilder().getBuilderList();
     }
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch, org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.Builder, org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.PatchOrBuilder> 
-        getPatchFieldBuilder() {
-      if (patchBuilder_ == null) {
-        patchBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch, org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.Builder, org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.PatchOrBuilder>(
-                patch_,
+        org.bytecamp.program_repair.backend.grpc.RepairTaskResult, org.bytecamp.program_repair.backend.grpc.RepairTaskResult.Builder, org.bytecamp.program_repair.backend.grpc.RepairTaskResultOrBuilder> 
+        getResultFieldBuilder() {
+      if (resultBuilder_ == null) {
+        resultBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+            org.bytecamp.program_repair.backend.grpc.RepairTaskResult, org.bytecamp.program_repair.backend.grpc.RepairTaskResult.Builder, org.bytecamp.program_repair.backend.grpc.RepairTaskResultOrBuilder>(
+                result_,
                 ((bitField0_ & 0x00000001) != 0),
                 getParentForChildren(),
                 isClean());
-        patch_ = null;
+        result_ = null;
       }
-      return patchBuilder_;
+      return resultBuilder_;
     }
     @java.lang.Override
     public final Builder setUnknownFields(

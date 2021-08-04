@@ -31,26 +31,26 @@ public interface RepairTaskResponseOrBuilder extends
       getMessageBytes();
 
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
-  java.util.List<org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch> 
-      getPatchList();
+  java.util.List<org.bytecamp.program_repair.backend.grpc.RepairTaskResult> 
+      getResultList();
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
-  org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch getPatch(int index);
+  org.bytecamp.program_repair.backend.grpc.RepairTaskResult getResult(int index);
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
-  int getPatchCount();
+  int getResultCount();
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
-  java.util.List<? extends org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.PatchOrBuilder> 
-      getPatchOrBuilderList();
+  java.util.List<? extends org.bytecamp.program_repair.backend.grpc.RepairTaskResultOrBuilder> 
+      getResultOrBuilderList();
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
-  org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.PatchOrBuilder getPatchOrBuilder(
+  org.bytecamp.program_repair.backend.grpc.RepairTaskResultOrBuilder getResultOrBuilder(
       int index);
 }
