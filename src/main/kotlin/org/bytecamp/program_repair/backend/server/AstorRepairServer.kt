@@ -20,7 +20,7 @@ class AstorRepairServer : RepairServer {
 class AstorRepairTask(source: String, val task: RepairTaskRequest) : RunningRepairTask {
     private val logger: Logger = LogManager.getLogger()
 
-    private val source = File(source)
+    private val source = File(source).absoluteFile
 
 
     override fun execute(writer: PrintStream): RepairTaskResponse {
