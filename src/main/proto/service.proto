@@ -14,9 +14,11 @@ message RepairTaskRequest {
   string location = 2;
   string project = 3;
   string algorithm = 4;
+  bytes content = 5;
   enum LocationType {
     PATH = 0;
     GIT = 1;
+    ZIP = 2;
   }
 }
 

@@ -31,3 +31,5 @@ build
 .idea
 
 astor.jar
+zip_repo
+git_repo
